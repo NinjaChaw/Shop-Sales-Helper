@@ -99,4 +99,11 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'products.delete'
     ]);
 
+
+    //Sale Controller
+    Route::get('/sale/all', [
+        'uses' => 'SalesController@index',
+        'as' => 'sale.all'
+    ]);
+
 });

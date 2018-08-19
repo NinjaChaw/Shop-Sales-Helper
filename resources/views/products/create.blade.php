@@ -7,7 +7,7 @@
         </div>
 
         <div class="panel-body">
-            <form action="{{ route('products.store') }}" method="post">
+            <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="category_id">Select Product Category</label>
@@ -19,15 +19,19 @@
                 </div>
                 <div class="form-group">
                     <label for="name">Product Name</label>
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" value="{{ old('name') }}" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="brand">Product Brand</label>
-                    <input type="text" name="brand" class="form-control">
+                    <input type="text" name="brand" value="{{ old('brand') }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="image">Upload product image</label>
+                    <input type="file" name="image">
                 </div>
                 <div class="form-group">
                     <label for="price">Product Price</label>
-                    <input type="number" name="price" class="form-control">
+                    <input type="number" name="price" value="{{ old('price') }}" class="form-control">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-success center-block">Upload Product</button>

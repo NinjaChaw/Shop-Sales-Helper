@@ -10,6 +10,9 @@
             <table class="table table-hover">
                 <thead>
                 <th>
+                    Image
+                </th>
+                <th>
                     Name
                 </th>
                 <th>
@@ -31,6 +34,7 @@
                 <tbody>
                 @foreach($products as $product)
                     <tr>
+                        <td><img src="{{ asset($product->image) }}" alt="" height="50px" width="100px"></td>
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->category->name }}</td>
                         <td>{{ $product->brand }}</td>

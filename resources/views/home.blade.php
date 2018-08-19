@@ -1,17 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
 
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
+    @if(Auth::user()->role === 'subscriber')
+        <div class="panel panel-success">
+            <div class="panel-heading text-center">Thank you for login!</div>
+            <div class="panel-footer text-center">
+                Please wait for admin approval to become a sales person
             </div>
+        </div>
+    @endif
+
+    @if(Auth::user()->role === 'saler')
+        <div class="panel panel-success">
+            <div class="panel-heading text-center">Thank you for login!</div>
+            <div class="panel-footer text-center">
+                You are a sales person
+            </div>
+        </div>
+    @endif
+
 @endsection

@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Session;
 
 class ProductsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,12 +47,19 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'category_id' => 'required',
             'name' => 'required',
             'brand' => 'required',
+            'image' => 'required',
             'price' => 'required'
         ]);
 
         $product = new Product();
+
+        $image = $request->file('image');
+        $imageName = time().'.'.$image->getClientOriginalName();
+        $image->move(public_path('/images'), $imageName);
+        $product->image = asset('/images/'.$imageName);
 
         $product->category_id = $request->category_id;
         $product->name = $request->name;
@@ -56,7 +68,7 @@ class ProductsController extends Controller
 
         $product->save();
 
-        Session::flash('success', 'Product is created successfully');
+        Session::flash('success', 'Product is stored successfully');
 
         Return redirect()->route('products');
     }
@@ -97,6 +109,7 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
+            'category_id' => 'required',
             'name' => 'required',
             'brand' => 'required',
             'price' => 'required'
@@ -126,7 +139,7 @@ class ProductsController extends Controller
         $product = Product::find($id);
         $product->delete();
 
-        Session::flash('success', 'Product Deleted');
+        Session::flash('success', 'Product Deleted successfully');
 
         return redirect()->back();
     }

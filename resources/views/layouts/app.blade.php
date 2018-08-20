@@ -18,12 +18,6 @@
 </head>
 <body>
 
-    {{--@if(Session::has('success'))--}}
-        {{--<div class="alert alert-success" style="margin: 0px; ">--}}
-            {{--{{ session('success') }}--}}
-        {{--</div>--}}
-    {{--@endif--}}
-
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">

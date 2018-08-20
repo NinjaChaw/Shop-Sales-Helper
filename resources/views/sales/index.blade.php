@@ -75,16 +75,6 @@
         </div>
     </nav>
 
-    {{--@if ($errors->any())--}}
-        {{--<div class="alert alert-danger">--}}
-            {{--<ul>--}}
-                {{--@foreach ($errors->all() as $error)--}}
-                    {{--<li>{{ $error }}</li>--}}
-                {{--@endforeach--}}
-            {{--</ul>--}}
-        {{--</div>--}}
-    {{--@endif--}}
-
     <form action="{{ route('search.products') }}" method="post" role="search">
         {{ csrf_field() }}
         <div class="center-block" style="width: 50%">
@@ -141,18 +131,6 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
-
-{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>--}}
-
-{{--@if (Session::has('success'))--}}
-    {{--<script>--}}
-        {{--$(document).ready(function() {--}}
-            {{--toastr.success--}}
-                    {{--{{ Session::get('success') }}--}}
-            {{--('{{ Session::get('success') }}');--}}
-        {{--});--}}
-    {{--</script>--}}
-{{--@endif--}}
 
 </body>
 </html>

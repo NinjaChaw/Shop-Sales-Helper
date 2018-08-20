@@ -75,27 +75,17 @@
         </div>
     </nav>
 
-    {{--@if ($errors->any())--}}
-        {{--<div class="alert alert-danger">--}}
-            {{--<ul>--}}
-                {{--@foreach ($errors->all() as $error)--}}
-                    {{--<li>{{ $error }}</li>--}}
-                {{--@endforeach--}}
-            {{--</ul>--}}
-        {{--</div>--}}
-    {{--@endif--}}
-
     <form action="{{ route('search.products') }}" method="post" role="search">
         {{ csrf_field() }}
         <div class="center-block" style="width: 50%">
-        <div class="input-group">
-            <input type="text" class="form-control" name="query" placeholder="Search here">
-            <span class="input-group-btn">
+            <div class="input-group">
+                <input type="text" class="form-control" name="query" placeholder="Search here">
+                <span class="input-group-btn">
                 <button type="submit" class="btn btn-default">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
             </span>
-        </div>
+            </div>
         </div>
     </form>
     <br>
@@ -104,36 +94,44 @@
 
     <div class="container">
         <div class="row">
-        @foreach($products as $product)
-            <div class="panel">
-            <div class="row col-md-offset-2">
-                <div class="col-md-4">
-                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" height="170px" width="270px" style="border-radius: 20px">
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Product Specification
+            @if($categories->count() > 0)
+                <h2 class="text-center alert-info">Search result for: "{{ $q }}"</h2>
+                <br>
+                @foreach($categories as $category)
+                    @foreach($category->products as $product)
+                        <div class="panel">
+                            <div class="row col-md-offset-2">
+                                <div class="col-md-4">
+                                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" height="170px" width="270px" style="border-radius: 20px">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Product Specification
+                                        </div>
+                                        <div class="panel-body">
+                                            <span>Product Category: </span><strong>{{ $product->category->name }}</strong>
+                                            <br>
+                                            <span>Product Name: </span><strong>{{ $product->name }}</strong>
+                                            <br>
+                                            <span>Product Brand: </span><strong>{{ $product->brand }}</strong>
+                                            <br>
+                                            <span>Product Price: </span><strong>${{ $product->price }}</strong>
+                                            <br>
+                                            <a href="{{ route('sale.product.details', $product->id) }}" class="btn btn-info btn-sm center-block">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <span>Product Category: </span><strong>{{ $product->category->name }}</strong>
-                            <br>
-                            <span>Product Name: </span><strong>{{ $product->name }}</strong>
-                            <br>
-                            <span>Product Brand: </span><strong>{{ $product->brand }}</strong>
-                            <br>
-                            <span>Product Price: </span><strong>${{ $product->price }}</strong>
-                            <br>
-                            <a href="{{ route('sale.product.details', $product->id) }}" class="btn btn-info btn-sm center-block">View Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-            <br>
-            <br>
-            <br>
-        @endforeach
+                        <br>
+                        <br>
+                        <br>
+                    @endforeach
+                @endforeach
+            @else
+                <h2 class="text-center alert-info">No results found for: "{{ $q }}"</h2>
+            @endif
         </div>
     </div>
 
@@ -141,18 +139,6 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
-
-{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>--}}
-
-{{--@if (Session::has('success'))--}}
-    {{--<script>--}}
-        {{--$(document).ready(function() {--}}
-            {{--toastr.success--}}
-                    {{--{{ Session::get('success') }}--}}
-            {{--('{{ Session::get('success') }}');--}}
-        {{--});--}}
-    {{--</script>--}}
-{{--@endif--}}
 
 </body>
 </html>

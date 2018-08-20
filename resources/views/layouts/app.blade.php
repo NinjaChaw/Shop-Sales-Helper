@@ -113,6 +113,10 @@
                                             {{--Only for admin use--}}
                                             @if(Auth::user()->role === 'admin')
                                                 <li class="list-group-item">
+                                                    <a href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
+                                                </li>
+                                                <br>
+                                                <li class="list-group-item">
                                                     <a href="{{ route('users') }}">All Users</a>
                                                 </li>
                                                 <br>

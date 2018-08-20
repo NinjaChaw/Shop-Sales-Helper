@@ -19,6 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/visitor', function () {
+    $categories = \App\Category::all();
+    return view('visitor', compact('categories'));
+});
+
+
 Route::group(['middleware' => 'auth'], function () {
 
     //User CRUD
@@ -35,6 +41,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/user/make/subscriber/{id}', [
         'uses' => 'UsersController@make_subscriber',
         'as' => 'user.make.subscriber'
+    ]);
+
+    //Admin Dashboard controller routs
+    Route::get('/admin/dashboard', [
+        'uses' => 'AdminDashboardController@index',
+        'as' => 'admin.dashboard'
     ]);
 
     //Category CRUD
@@ -104,6 +116,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/sale/all', [
         'uses' => 'SalesController@index',
         'as' => 'sale.all'
+    ]);
+
+    Route::get('/sale/product/details/{id}', [
+        'uses' => 'SalesController@product_details',
+        'as' => 'sale.product.details'
+    ]);
+
+    Route::post('/search/products', [
+        'uses' => 'SalesController@search',
+        'as' => 'search.products'
+    ]);
+
+    Route::get('/product/sold/{id}', [
+        'uses' => 'SalesController@product_sold',
+        'as' => 'product.sold'
     ]);
 
 });
